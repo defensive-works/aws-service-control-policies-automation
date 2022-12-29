@@ -1,0 +1,37 @@
+name: Validate Service Control Policies
+
+on:
+  # push:
+  #   branches:
+  #     - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+    
+env:
+  AWS_DEFAULT_REGION: us-east-1
+
+jobs:
+  IAMPolicyValidator:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: configureawscredentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::920024193878:role/GitHubWorkFlowValidatePolicyRole
+          role-session-name: ServiceControlPolicyAutomation
+          aws-region: ${{env.AWS_DEFAULT_REGION}}
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Locate, build and run SAM App
+      - name: Validate ServiceControlPolicies
+        run: |
+          cd tests/
+          ./policy_validator.sh
