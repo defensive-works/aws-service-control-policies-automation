@@ -23,15 +23,15 @@ class AutomatedSCPStack(Stack):
 			target_ids=['946996879141']
 		)
 
-		# Policy for restricting the creation of IAM Users/Access Keys
-		with open('policies/deny-ability-to-create-iam-access-keys-users.json', 'r') as f:
-			deny_ability_to_create_iam_access_keys_users_policy = f.read()
+		# # Policy for restricting the creation of IAM Users/Access Keys
+		# with open('policies/deny-ability-to-create-iam-access-keys-users.json', 'r') as f:
+		# 	deny_ability_to_create_iam_access_keys_users_policy = f.read()
 
-		deny_manual_changes_identity_center_policy = organizations.CfnPolicy(
-			self, 'deny_ability_to_create_iam_access_keys_users_policy',
-			content=deny_ability_to_create_iam_access_keys_users_policy,
-			name='deny-ability-to-create-iam-access-keys-users',
-			type='SERVICE_CONTROL_POLICY',
-			description='Restrict users the ability to create IAM access keys or users',
-			target_ids=['ou-g63m-8pshnzfy']
-		)		
+		# deny_manual_changes_identity_center_policy = organizations.CfnPolicy(
+		# 	self, 'deny_ability_to_create_iam_access_keys_users_policy',
+		# 	content=deny_ability_to_create_iam_access_keys_users_policy,
+		# 	name='deny-ability-to-create-iam-access-keys-users',
+		# 	type='SERVICE_CONTROL_POLICY',
+		# 	description='Restrict users the ability to create IAM access keys or users',
+		# 	target_ids=['ou-g63m-8pshnzfy']
+		# )		
